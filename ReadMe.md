@@ -1,4 +1,5 @@
 > # Expenditure_Analyzer  
+App hosted at - https://expo.io/@shivanshmundra/Hint2018
 # Why this app?  
 This **crossplatform (react native)** app is solution of one of the big problem in our society : **Non-standardized**, **Non-transparent** service sector pricing i.e. **Medical bills are biggest cause of personal bankruptcies**.  
 We solve this problem by: **Decentralized** database of medical costs, **Cryptocurrency** to incentivize reporting medical bills resulting in consumer empowerment in healthcare pricing. We extended this idea to not only healthcare but more sectors of **non-standardized**, **non-transparent** services.
