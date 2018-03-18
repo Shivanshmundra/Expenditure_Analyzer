@@ -213,7 +213,7 @@ export default class HomeScreen extends Component {
               source={require("../assets/images/icons8-document.png")}
             />
             <View style={{ marginLeft: 8 }}>
-              <Text style={{ color, fontSize: 18 }}>Medical Bill v1.0</Text>
+              <Text style={{ color, fontSize: 18 }}>Bill v1.0</Text>
               <Text style={{ color: Colors.text, fontSize: 12 }}>Pending</Text>
             </View>
           </View>

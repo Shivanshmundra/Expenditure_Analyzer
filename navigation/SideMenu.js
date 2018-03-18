@@ -37,11 +37,11 @@ class SideMenu extends Component {
                 borderWidth: 2,
                 borderColor: Colors.main
               }}
-              source={require("../assets/images/face.png")}
+              source={require("../assets/images/face.jpeg")}
             />
             <Text style={{ color: Colors.textBlack, marginTop: 16 }}>
               Welcome,{" "}
-              <Text style={{ color: Colors.main, fontSize: 18 }}>Sung</Text>!
+              <Text style={{ color: Colors.main, fontSize: 18 }}>Shivansh</Text>!
             </Text>
 
             <TouchableOpacity 

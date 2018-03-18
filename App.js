@@ -32,12 +32,12 @@ export default class App extends React.Component {
 
   componentDidMount() {
        var config = {
-      apiKey: "AIzaSyBori6bq02LY9ig_oq3kboBRxMKujMCF_Q",
-      authDomain: "hint-b7807.firebaseapp.com",
-      databaseURL: "https://hint-b7807.firebaseio.com",
-      projectId: "hint-b7807",
-      storageBucket: "hint-b7807.appspot.com",
-      messagingSenderId: "766525352155"
+      apiKey: "AIzaSyB9r-sCRkzkC_vTW9qVHrRuPsYsTsOg0Fo",
+      authDomain: "hint-31c41.firebaseapp.com",
+      databaseURL: "https://hint-31c41.firebaseio.com",
+      projectId: "hint-31c41",
+      storageBucket: "",
+      messagingSenderId: "211116239733"
     };
     firebase.initializeApp(config);
   }

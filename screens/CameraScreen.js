@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Camera, Permissions, Asset } from "expo";
 import Colors from "../constants/Colors";
-import {uploadPicture} from '../utils/firebaseUtil';
+import {uploadPicture, uploadData} from '../utils/firebaseUtil';
 import Loading from '../components/LoadingModal';
 const { width, height } = Dimensions.get("window");
 import { checkForLabels } from './ocr'
@@ -23,6 +23,7 @@ export default class CameraExample extends React.Component {
     uri: null,
     loading: false,
     jsonInput: null,
+    dict: [],
   };
 
   async componentWillMount() {
@@ -61,14 +62,57 @@ export default class CameraExample extends React.Component {
         height: 534,
         width: 300
       }
+
+     
+
+
       Expo.takeSnapshotAsync(this.image, options).then((data) => {
+        if(this.state.base64){
+          console.log("shivansh!!");
+        }
+
+
         //console.log(data);
       
         uploadPicture(this.state.base64).then(() => {
-          this.setState({loading: false})
-            this.props.navigation.goBack();
+          console.log("Dict is printing");
+          console.log(this.state.dict);
+          this.setState({loading: true});
         });
       })
+
+
+
+    
+      checkForLabels(this.state.base64)
+     .then((responseJson) => {
+      console.log("Flag2");
+      //console.log(JSON.stringify(responseJson));
+      this.setState({jsonInput: JSON.stringify(responseJson)});
+      console.log(this.state.jsonInput);
+      let s = JSON.parse(this.state.jsonInput);
+      let str = JSON.stringify(s.responses[0].textAnnotations[0].description);
+      console.log(s.responses[0].textAnnotations[0].description);  
+      //let res = str.split("\n");
+      let res1 = s.responses[0].textAnnotations[0].description.split("\n");
+      //console.log(res);
+      console.log(res1);
+      var dictionary = { 
+        BloodTest: (Number(res1[3])),
+        CTscan: (Number(res1[4])),
+        Surgery: (Number(res1[5]))
+      };
+
+      this.setState({dict: dictionary});
+      uploadData(JSON.stringify(this.state.dict)).then(() => {
+          console.log("Dict is printing");
+          console.log(this.state.dict);
+           this.setState({loading: false})
+            this.props.navigation.goBack();
+        });
+    });
+    
+
 
      //  let base_image = this.state.base64;
      // let result = async (base_image) => {
@@ -83,22 +127,9 @@ export default class CameraExample extends React.Component {
      //  }
 
 
-        if(this.state.base64){
-      console.log("base64 recieved");
-     }
 
-     checkForLabels(this.state.base64)
-     .then((responseJson) => {
-      console.log("Flag2");
-      //console.log(JSON.stringify(responseJson));
-      this.setState({jsonInput: JSON.stringify(responseJson)});
-      console.log(this.state.jsonInput);
-      let s = JSON.parse(this.state.jsonInput);
-      console.log(s.responses[0].textAnnotations[0].description);  
-     })
-     .catch((error) =>{
-      console.log(error);
-     })
+
+
     
      //console.log(this.state.jsonInput);
 

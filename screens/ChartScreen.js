@@ -21,8 +21,12 @@ import {
 } from "victory-native";
 
 import Colors from "../constants/Colors";
+import { getData } from '../utils/firebaseUtil';
+import firebase from 'firebase';
+
 
 import { VictoryTheme } from "victory-core";
+
 
 const styles = StyleSheet.create({
   container: {
@@ -43,21 +47,21 @@ const styles = StyleSheet.create({
 
 const legendData = [
   {
-    name: "Johns Hopkins Hospital",
+    name: "BloodTest",
     symbol: {
       type: "circle",
       fill: "#006064"
     }
   },
   {
-    name: "Mayo Clinic",
+    name: "CTscan",
     symbol: {
       type: "circle",
       fill: "#00796B"
     }
   },
   {
-    name: "MGH",
+    name: "Surgery",
     symbol: {
       type: "circle",
       fill: "#FFF59D"
@@ -65,7 +69,138 @@ const legendData = [
   }
 ];
 
-export default class Chart extends Component {
+
+
+export default class Chart extends React.Component {
+  // constructor(props){
+  // super(props);
+  // this.state = {
+  //   Flexon: [],
+  //   CTscan: [],
+  //   Surgery: []
+  // }
+  // this.update = this.update.bind(this);
+  // }
+
+  state = {
+    BloodTest: [],
+    CTscan: [],
+    Surgery: []
+  }
+
+  alt(val){
+    alert(val.toString());
+  }
+
+  componentDidMount(){
+    var ref = firebase.database().ref('data_imgs');
+    console.log("ffff");
+         ref.on('value', (snapshot) => {
+         const a = [];
+         var s1="",s2="",s3="";
+         snapshot.forEach((childSnapshot) => {
+         var childData = childSnapshot.val();
+         var t = JSON.parse(childData["data"]);
+         // s1 = s1 + " " + t.BloodTest.toString();
+         // s2 = s2 + " " + t.BloodTest.toString();
+         // s3 = s3 + " " + t.BloodTest.toString();
+         // s1 =  t.BloodTest.toString();
+         // s2 =  t.CTscan.toString();
+         // s3 =  t.Surgery.toString();
+         console.log(t);
+         s1 =  t.BloodTest.toString();
+         s2 =  t.CTscan.toString();
+         s3 =  t.Surgery.toString();
+         //  a.push({
+         //  f: t.BloodTest,
+         //  c: t.CTscan,
+         //  p: t.Surgery
+         // });
+        });
+      var s = "BloodTest : " + s1 + "\n" + "Surgery : " + s2 +"\n" + "CTscan : " + s3;
+      // console.log(s);
+      this.alt(s);
+        
+      });
+
+      //     var ref = firebase.database().ref('data_imgs');
+      //    ref.on('value', function(snapshot){
+      //    snapshot.forEach(function(childSnapshot){
+      //     var childData = childSnapshot.val();
+      //     console.log(childData["data"]);
+      //     var t = JSON.parse(childData["data"]);
+      //     let f = this.state.Flexon.slice();
+      //     let c = this.state.Surgery.slice();
+      //     let p = this.state.CTscan.slice();
+      //     f.push(t.Flexon);
+      //     c.push(t.Surgery);
+      //     p.push(t.CTscan);
+
+      //     this.setState({
+      //       Flexon: f,
+      //       CTscan: p,
+      //       Surgery: c 
+      //     })
+      //     console.log("ffff");
+      //   });
+      // });
+      //console.log(this.state.Flexon);
+  }
+
+  //   state = {
+  //   Flexon: [],
+  //   CTscan: [],
+  //   Surgery: []
+  // }
+
+// componentDidMount(){
+//   console.log("jai");
+//   console.log(this.state.Flexon);
+//   // this.update().then(()=>{
+//   //   consloe.log("peace to hai!!");
+//   // }); 
+// }
+
+
+  // componentDidMount(){
+  //     //console.log(this.state.Flexon);
+  //     var ref = firebase.database().ref('data_imgs');
+  //     ref.on('value', function(snapshot){
+  //       snapshot.forEach(function(childSnapshot){
+  //         var childData = childSnapshot.val();
+  //         console.log(childData["data"]);
+  //         var t = JSON.parse(childData["data"]);
+  //         let f = this.state.Flexon.slice();
+  //         let c = this.state.Surgery.slice();
+  //         let p = this.state.CTscan.slice();
+  //         f.push(t.Flexon);
+  //         c.push(t.Surgery);
+  //         p.push(t.CTscan);
+
+  //         this.setState({
+  //           Flexon: f,
+  //           CTscan: p,
+  //           Surgery: c 
+  //         })
+
+  //         // Surgery.push(t.Surgery);
+  //         // CTscan.push(t.CTscan);
+  //         //console.log(this.state.has);
+
+  //         // d.push(30);
+
+  //       //this.setState({flexon: dictionary});
+  //         // let f = this.state.flexon;
+  //         // f.push(30);
+  //         // this.setState({ 
+  //         //   flexon:f
+  //         // })
+  //       });
+  //     });
+
+
+  // }
+  
   renderHeader() {
     return (
       <View
@@ -101,6 +236,15 @@ export default class Chart extends Component {
     );
   }
   render() {
+
+
+
+
+
+
+
+
+
     return (
       <View style={{ flex: 1 }}>
       <StatusBar barStyle='light-content'/>
@@ -115,7 +259,7 @@ export default class Chart extends Component {
               color: Colors.text,
               fontWeight: "600",
               fontSize: 18,
-              marginTop: 48
+              marginTop: 28
             }}
           >
             Price Comparison for Lung Cancer Treatment
@@ -135,25 +279,26 @@ export default class Chart extends Component {
             <VictoryGroup offset={25} colorScale={"qualitative"}>
               <VictoryBar
                 data={[
-                  { x: 1, y: 35000 },
-                  { x: 2, y: 26000 },
-                  { x: 3, y: 50000 }
+                  { x: 1, y: 100 },
+                  { x: 2, y: 200 },
+                  { x: 3, y: 300 }
                 ]}
               />
               <VictoryBar
                 data={[
-                  { x: 1, y: 20100 },
-                  { x: 2, y: 14129 },
-                  { x: 3, y: 72387 }
+                  { x: 1, y: 400 },
+                  { x: 2, y: 500 },
+                  { x: 3, y: 600 }
                 ]}
               />
-              <VictoryBar
+               <VictoryBar
                 data={[
-                  { x: 1, y: 39000 },
-                  { x: 2, y: 42309 },
-                  { x: 3, y: 92342 }
+                  { x: 1, y: 700 },
+                  { x: 2, y: 800 },
+                  { x: 3, y: 900 }
                 ]}
               />
+        
             </VictoryGroup>
           </VictoryChart>
         </ScrollView>

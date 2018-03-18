@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "hint2018",
-    "description": "A Hack for Good App",
-    "slug": "hint2018",
+    "name": "Hint2018",
+    "description": "An app to analyse your expenditure",
+    "slug": "Hint2018",
     "privacy": "public",
     "sdkVersion": "25.0.0",
     "platforms": ["ios", "android"],
